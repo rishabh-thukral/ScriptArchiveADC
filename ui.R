@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+scriptDB <- read.csv("ScriptDB.csv",stringsAsFactors = FALSE)
 loginUI<-modalDialog(
   uiOutput("invalid"),
   textInput("userName", "Username"),
@@ -56,7 +57,11 @@ ui2 <- dashboardPage(skin = "purple",
                   tabItems(
                     # First tab content
                     tabItem(tabName = "browse",
-                            h2("Browse tab content")
+                            div(),#For Search box
+                            lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
+                              uiOutput(paste0('script', i))
+                            })
+                            
                     ),
                     
                     # Second tab content

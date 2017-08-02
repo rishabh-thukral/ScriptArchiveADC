@@ -1,0 +1,38 @@
+div.list-item{
+    background-color: #f6f6f5;
+	width: 600px;
+    float: left;
+    margin-left: 20px;
+	padding: 15px 20px;
+}
+h3.list-item-name{
+	color: #551a8b;
+    font-size: 25px;
+    margin: 0 0 0.5em;
+    padding: 0;
+	float: left;
+}
+h4.list-item-author{
+	color: #551a8b;
+    font-size: 20px;
+    margin: 0 0 0.5em;
+    padding: 0;
+	text-align: right;
+	float: right;
+}
+p.list-item-syn{
+    color: rgba(0,0,0,0.6);
+}
+div.list-item-synt{
+	font-size: 15px;
+	text-align: center;
+}
+div.desc1{
+	text-align:left;
+}
+div.desc2{
+	font-weight: bold;
+}
+div.desc3{
+	text-align:right;
+}
