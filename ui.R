@@ -57,11 +57,17 @@ ui2 <- dashboardPage(skin = "purple",
                   tabItems(
                     # First tab content
                     tabItem(tabName = "browse",
-                            div(),#For Search box
-                            lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
-                              uiOutput(paste0('script', i))
-                            })
-                            
+                            sidebarLayout(
+                              sidebarPanel(
+                                #for filter
+                              ),
+                              mainPanel(
+                                div(),#For Search box
+                                lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
+                                  uiOutput(paste0('script', i))
+                                })
+                              )
+                            )
                     ),
                     
                     # Second tab content
