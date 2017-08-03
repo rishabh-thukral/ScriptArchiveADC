@@ -10,7 +10,7 @@ tweaks <- list(tags$head(tags$style(HTML("
                                  column-count: 5; 
                                  -moz-column-fill: auto;
                                  -column-fill: auto;
-                                 } 
+                                 }
                                  ")) 
   ))# for aligning checkboxes
 loginUI<-modalDialog(
@@ -72,11 +72,21 @@ ui2 <- dashboardPage(skin = "purple",
                   tabItems(
                     # First tab content
                     tabItem(tabName = "browse",
-                            h1("List of Scripts",style="margin-left: 250px"),
-                            div(),#For Search box
-                            lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
-                              uiOutput(paste0('script', i))
-                            })
+                            fluidPage(list(tags$head(
+                              tags$style(
+                                HTML(
+                                  ".content-wrapper{
+                                        overflow-y: auto;
+                                  }"
+                                )
+                              )
+                            )),
+                              h1("List of Scripts",style="margin-left: 250px"),
+                              div(),#For Search box
+                              lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
+                                uiOutput(paste0('script', i))
+                              })
+                            )
                             #sidebarLayout(
                              # sidebarPanel(
                              #   #for filter
