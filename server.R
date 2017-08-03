@@ -40,7 +40,7 @@ shinyServer(function(input, output,session) {
           #IMdB type genre list interface
           div(class = "list-item",
               list(
-                h3(class = "list-item-name",(a(href=scriptDB[i,9],target = "_blank",paste0("1.",scriptDB[i,2]))),
+                h3(class = "list-item-name",(a(href=scriptDB[i,10],target = "_blank",paste0("1.",scriptDB[i,2]))),
                    style="color: #551a8b;
                     font-size: 25px;
                    margin: 0 0 0.5em;
@@ -56,9 +56,9 @@ shinyServer(function(input, output,session) {
                 br(style="clear:both;"),
                 div(class = "list-item-synt",style="font-size: 15px;text-align: center;","Synopsis"),
                 p(class = "list-item-syn",scriptDB[i,4]),#Synopsis Here
-                div(class = "desc1",style = "text-align:left;",paste0("Cast(M/F) : ",scriptDB[i,6],"\t | #Acts: ",scriptDB[i,7],"\t | Duration: ",scriptDB[i,5],"\t | Language: ",scriptDB[i,10])),#Desc here
+                div(class = "desc1",style = "text-align:left;",paste0("Cast(M/F) : ",scriptDB[i,6],"/",scriptDB[i,7],"\t | #Acts: ",scriptDB[i,8],"\t | Duration: ",scriptDB[i,5],"\t | Language: ",scriptDB[i,11])),#Desc here
                 div(class = "desc2",style = "font-weight: bold;","Genre : "),
-                scriptDB[i,8],#genre here
+                scriptDB[i,9],#genre here
                 br()
               ),
               style = "
