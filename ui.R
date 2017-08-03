@@ -72,17 +72,19 @@ ui2 <- dashboardPage(skin = "purple",
                   tabItems(
                     # First tab content
                     tabItem(tabName = "browse",
-                            sidebarLayout(
-                              sidebarPanel(
-                                #for filter
-                              ),
-                              mainPanel(
-                                div(),#For Search box
-                                lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
-                                  uiOutput(paste0('script', i))
-                                })
-                              )
-                            )
+                            h1("List of Scripts",style="margin-left: 250px"),
+                            div(),#For Search box
+                            lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
+                              uiOutput(paste0('script', i))
+                            })
+                            #sidebarLayout(
+                             # sidebarPanel(
+                             #   #for filter
+                              #),
+                            #  mainPanel(
+                                
+                            #  )
+                            #)
                     ),
                     
                     # Second tab content
@@ -98,6 +100,11 @@ ui2 <- dashboardPage(skin = "purple",
                                 column(8,offset = 4,
                                        textInput("author","Author : ")
                                        )
+                              ),
+                              fluidRow(
+                                column(8,offset = 4,
+                                       textInput("resource.address","Link to File in Drive : ")
+                                )
                               ),
                               fluidRow(
                                 column(8,offset = 4,
@@ -125,7 +132,7 @@ ui2 <- dashboardPage(skin = "purple",
                               fluidRow(
                                 column(8,offset = 4,
                                   selectInput("language","Language : ",
-                                              c("English"="English","Hindi"="Hindi"))
+                                              c("English"="English","Hindi"="Hindi"),selected = "Hindi")
                                 )
                               ),
                               fluidRow(
@@ -176,7 +183,8 @@ ui2 <- dashboardPage(skin = "purple",
                     
                     # Third tab content
                     tabItem(tabName = "remove",
-                            h2("Remove tab content")
+                            h2("Remove tab content"),
+                            h4("Coming Soon! I hope you liked this MVP. Please share your valuable suggestions , feedback, bug reports at rishabhthukral276@hotmail.com.")
                     )
                   )
                 )

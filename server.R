@@ -1,5 +1,6 @@
 library(shiny)
 library(digest)
+library(RCurl)
 source('ui.R', local=TRUE)
 scriptDB <- read.csv("ScriptDB.csv",stringsAsFactors = FALSE)
 # Define server logic 
@@ -40,7 +41,7 @@ shinyServer(function(input, output,session) {
           #IMdB type genre list interface
           div(class = "list-item",
               list(
-                h3(class = "list-item-name",(a(href=scriptDB[i,10],target = "_blank",paste0("1.",scriptDB[i,2]))),
+                h3(class = "list-item-name",(a(href=scriptDB[i,10],target = "_blank",paste0(i,".",scriptDB[i,2]))),
                    style="color: #551a8b;
                     font-size: 25px;
                    margin: 0 0 0.5em;
@@ -56,22 +57,92 @@ shinyServer(function(input, output,session) {
                 br(style="clear:both;"),
                 div(class = "list-item-synt",style="font-size: 15px;text-align: center;","Synopsis"),
                 p(class = "list-item-syn",scriptDB[i,4]),#Synopsis Here
-                div(class = "desc1",style = "text-align:left;",paste0("Cast(M/F) : ",scriptDB[i,6],"/",scriptDB[i,7],"\t | #Acts: ",scriptDB[i,8],"\t | Duration: ",scriptDB[i,5],"\t | Language: ",scriptDB[i,11])),#Desc here
+                div(class = "desc1",style = "text-align:left;",paste0("Cast(M/F) : ",scriptDB[i,6],"/",scriptDB[i,7],"\t | #Acts: ",scriptDB[i,8],"\t | Duration: ",scriptDB[i,5]," minutes\t | Language: ",scriptDB[i,11])),#Desc here
                 div(class = "desc2",style = "font-weight: bold;","Genre : "),
                 scriptDB[i,9],#genre here
-                br()
+                hr()
               ),
               style = "
-              div.list-item{
               background-color: #f6f6f5;
-              width: 600px;
+              width: 646px;
               float: left;
               margin-left: 20px;
               padding: 15px 20px;
-              }"
+              border-radius:  10px;
+              "
          )
         })
       })
       }
+  })
+  observeEvent(input$submit,{
+    error <- " "
+    if(input$name==""){
+      error <- paste0(error," Name")
+    }
+    if(input$author==""){
+      error <- paste0(error," Author(Anon)")
+    }
+    if(url.exists(input$resource.address)==FALSE){
+      error <- paste0(error," Valid URL")
+    }
+    if(error!=" "){
+      showModal(modalDialog("Following items must be entered:-",br(),error,title = "Required Values"))
+    }else{
+      #Show Processing Screen
+      processing.screen <- showModal(modalDialog(htmltools::HTML('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only"></span>'),h2("Processing"),footer = NULL,size = "s"))
+      #isolate all values and and write them to file
+      script.name <- isolate(input$name)
+      script.author <- isolate(input$author)
+      script.link <- isolate(input$resource.address)
+      script.duration <- isolate(input$duration)
+      script.cast.m <- isolate(input$cast.m)
+      script.cast.f <- isolate(input$cast.f)
+      script.acts <- isolate(input$acts)
+      script.synopsis <- isolate(input$synopsis)
+      script.language <- isolate(input$language)
+      script.genre <- isolate(paste(input$genre,collapse = "_"))
+      script.performed <- ifelse(input$performed,"yes","no");
+      #Write to file
+      # print(script.name)
+      # print(script.author)
+      # print(script.link)
+      # print(script.duration)
+      # print(script.cast.m)
+      # print(script.cast.f)
+      # print(script.acts)
+      # print(script.synopsis)
+      # print(script.language)
+      # print(script.genre)
+      # print(script.performed)
+      script.id <- paste0(script.name,script.author)
+      script.id <- gsub(pattern = "[[:blank:]]",replacement = "",x = script.id)
+      script.id <- gsub(pattern = "[[:punct:]]",replacement = "",x = script.id)
+      script.id <- tolower(script.id)
+      print(script.id)
+      script.id <- sha1(script.id)
+      newScript <- data.frame(script.id,script.name,script.author,script.synopsis,script.duration,script.cast.m,script.cast.f
+                              ,script.acts,script.genre,script.link,script.language,script.performed)
+      colnames(newScript)<-colnames(scriptDB)
+      print(newScript)
+      scriptDB <- rbind(scriptDB,newScript)
+      write.csv(scriptDB,file ="ScriptDB.csv",row.names = FALSE)
+      #Reset the form
+      updateTextInput(session,"name",value = "")
+      updateTextInput(session,"author",value = "")
+      updateTextInput(session,"resource.address",value = "")
+      updateNumericInput(session,"duration",value = 0)
+      updateNumericInput(session,"cast.m",value = 0)
+      updateNumericInput(session,"cast.f",value = 0)
+      updateNumericInput(session,"acts",value = 1)
+      updateTextAreaInput(session,"synopsis",value = "")
+      updateCheckboxGroupInput(session,"genre",selected = character(0))
+      updateCheckboxInput(session,"performed",value = FALSE)
+      #Remove Processing Screen
+      removeModal();
+      #Show Successful Message
+      showModal(modalDialog(h3("Script Sucessfully Added")))
+    }
+    
   })
 })
