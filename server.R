@@ -3,18 +3,12 @@ library(digest)
 library(RCurl)
 source('ui.R', local=TRUE)
 scriptDB <- read.csv("ScriptDB.csv",stringsAsFactors = FALSE)
-<<<<<<< HEAD
 scriptDBR <- reactiveValues(scriptDB = scriptDB,currentRowCount = nrow(scriptDB))
-=======
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
 # Define server logic 
 shinyServer(function(input, output,session) {
   admin <- read.csv("admin.csv",stringsAsFactors = FALSE)
   loggedIN <- reactiveValues(logged = FALSE)
-<<<<<<< HEAD
   
-=======
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
   observe({
     if(loggedIN$logged==FALSE){
       modalID <- showModal(loginUI)
@@ -44,7 +38,6 @@ shinyServer(function(input, output,session) {
   })
   observe({
     if(loggedIN$logged==TRUE){
-<<<<<<< HEAD
       if(nrow(scriptDBR$scriptDB)!=scriptDBR$currentRowCount){
         #We must insert new UI to handle more added scripts
         selectorForUI <- paste0('#script', scriptDBR$currentRowCount)
@@ -52,28 +45,17 @@ shinyServer(function(input, output,session) {
         scriptDBR$currentRowCount <- 1 +scriptDBR$currentRowCount
       }
       lapply(1:nrow(scriptDBR$scriptDB), function(i) {
-=======
-      lapply(1:nrow(scriptDB), function(i) {
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
         output[[paste0('script', i)]] <- renderUI({
           #IMdB type genre list interface
           div(class = "list-item",
               list(
-<<<<<<< HEAD
                 h3(class = "list-item-name",(a(href=scriptDBR$scriptDB[i,10],target = "_blank",paste0(i,".",scriptDBR$scriptDB[i,2]))),
-=======
-                h3(class = "list-item-name",(a(href=scriptDB[i,10],target = "_blank",paste0(i,".",scriptDB[i,2]))),
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
                    style="color: #551a8b;
                     font-size: 25px;
                    margin: 0 0 0.5em;
                    padding: 0;
                    float: left;"),#Add link and Name here
-<<<<<<< HEAD
                 h4(class = "list-item-author",scriptDBR$scriptDB[i,3],style="
-=======
-                h4(class = "list-item-author",scriptDB[i,3],style="
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
                    color: #551a8b;
                    font-size: 20px;
                    margin: 0 0 0.5em;
@@ -82,17 +64,10 @@ shinyServer(function(input, output,session) {
 	                 float: right;"),#Author Name
                 br(style="clear:both;"),
                 div(class = "list-item-synt",style="font-size: 15px;text-align: center;","Synopsis"),
-<<<<<<< HEAD
                 p(class = "list-item-syn",scriptDBR$scriptDB[i,4]),#Synopsis Here
                 div(class = "desc1",style = "text-align:left;",paste0("Cast(M/F) : ",scriptDBR$scriptDB[i,6],"/",scriptDBR$scriptDB[i,7],"\t | #Acts: ",scriptDBR$scriptDB[i,8],"\t | Duration: ",scriptDBR$scriptDB[i,5]," minutes\t | Language: ",scriptDBR$scriptDB[i,11])),#Desc here
                 div(class = "desc2",style = "font-weight: bold;","Genre : "),
                 scriptDBR$scriptDB[i,9],#genre here
-=======
-                p(class = "list-item-syn",scriptDB[i,4]),#Synopsis Here
-                div(class = "desc1",style = "text-align:left;",paste0("Cast(M/F) : ",scriptDB[i,6],"/",scriptDB[i,7],"\t | #Acts: ",scriptDB[i,8],"\t | Duration: ",scriptDB[i,5]," minutes\t | Language: ",scriptDB[i,11])),#Desc here
-                div(class = "desc2",style = "font-weight: bold;","Genre : "),
-                scriptDB[i,9],#genre here
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
                 hr()
               ),
               style = "
@@ -123,11 +98,7 @@ shinyServer(function(input, output,session) {
       showModal(modalDialog("Following items must be entered:-",br(),error,title = "Required Values"))
     }else{
       #Show Processing Screen
-<<<<<<< HEAD
       #processing.screen <- showModal(modalDialog(htmltools::HTML('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only"></span>'),h2("Processing"),footer = NULL,size = "s"))
-=======
-      processing.screen <- showModal(modalDialog(htmltools::HTML('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only"></span>'),h2("Processing"),footer = NULL,size = "s"))
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
       #isolate all values and and write them to file
       script.name <- isolate(input$name)
       script.author <- isolate(input$author)
@@ -164,12 +135,9 @@ shinyServer(function(input, output,session) {
       print(newScript)
       scriptDB <- rbind(scriptDB,newScript)
       write.csv(scriptDB,file ="ScriptDB.csv",row.names = FALSE)
-<<<<<<< HEAD
       scriptDBR$scriptDB <- rbind(scriptDBR$scriptDB,newScript)# Also changing reactive scriptDB to reflec new addition in script list
       print("reavtive value updated")
       #RowCount Updated after inserting ui
-=======
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
       #Reset the form
       updateTextInput(session,"name",value = "")
       updateTextInput(session,"author",value = "")
@@ -182,7 +150,6 @@ shinyServer(function(input, output,session) {
       updateCheckboxGroupInput(session,"genre",selected = character(0))
       updateCheckboxInput(session,"performed",value = FALSE)
       #Remove Processing Screen
-<<<<<<< HEAD
       
       #Show Successful Message
       showModal(modalDialog(h3("Script Sucessfully Added")))
@@ -199,12 +166,5 @@ shinyServer(function(input, output,session) {
     },
     contentType = "text/csv"
   )
-=======
-      removeModal();
-      #Show Successful Message
-      showModal(modalDialog(h3("Script Sucessfully Added")))
-    }
-    
-  })
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
+      
 })

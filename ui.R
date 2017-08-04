@@ -10,11 +10,7 @@ tweaks <- list(tags$head(tags$style(HTML("
                                  column-count: 5; 
                                  -moz-column-fill: auto;
                                  -column-fill: auto;
-<<<<<<< HEAD
                                  }
-=======
-                                 } 
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
                                  ")) 
   ))# for aligning checkboxes
 loginUI<-modalDialog(
@@ -76,7 +72,6 @@ ui2 <- dashboardPage(skin = "purple",
                   tabItems(
                     # First tab content
                     tabItem(tabName = "browse",
-<<<<<<< HEAD
                             fluidPage(list(tags$head(
                               tags$style(
                                 HTML(
@@ -92,13 +87,6 @@ ui2 <- dashboardPage(skin = "purple",
                                 uiOutput(paste0('script', i))
                               })
                             )
-=======
-                            h1("List of Scripts",style="margin-left: 250px"),
-                            div(),#For Search box
-                            lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
-                              uiOutput(paste0('script', i))
-                            })
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
                             #sidebarLayout(
                              # sidebarPanel(
                              #   #for filter
@@ -206,12 +194,8 @@ ui2 <- dashboardPage(skin = "purple",
                     # Third tab content
                     tabItem(tabName = "remove",
                             h2("Remove tab content"),
-<<<<<<< HEAD
                             h4("Coming Soon! I hope you liked this MVP. Please share your valuable suggestions , feedback, bug reports at rishabhthukral276@hotmail.com."),
                             downloadButton("download_btn","Download Database")
-=======
-                            h4("Coming Soon! I hope you liked this MVP. Please share your valuable suggestions , feedback, bug reports at rishabhthukral276@hotmail.com.")
->>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
                     )
                   )
                 )
