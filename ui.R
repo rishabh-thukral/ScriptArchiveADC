@@ -76,11 +76,11 @@ ui2 <- dashboardPage(skin = "purple",
                               tags$style(
                                 HTML(
                                   ".content-wrapper{
-                                        overflow-y: auto;
+                                  overflow-y: auto;
                                   }"
                                 )
-                              )
-                            )),
+                                )
+                                )),
                               h1("List of Scripts",style="margin-left: 250px"),
                               div(),#For Search box
                               lapply(1:nrow(scriptDB), function(i) {#Number of scripts to shown
@@ -194,7 +194,8 @@ ui2 <- dashboardPage(skin = "purple",
                     # Third tab content
                     tabItem(tabName = "remove",
                             h2("Remove tab content"),
-                            h4("Coming Soon! I hope you liked this MVP. Please share your valuable suggestions , feedback, bug reports at rishabhthukral276@hotmail.com.")
+                            h4("Coming Soon! I hope you liked this MVP. Please share your valuable suggestions , feedback, bug reports at rishabhthukral276@hotmail.com."),
+                            downloadButton("download_btn","Download Database")
                     )
                   )
                 )
