@@ -14,15 +14,22 @@ h3.list-item-name{
 }
 h4.list-item-author{
 	color: #551a8b;
+<<<<<<< HEAD
+=======
+    font-size: 20px;
+>>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
     margin: 0 0 0.5em;
     padding: 0;
 	text-align: right;
 	float: right;
 }
+<<<<<<< HEAD
 h4.list-item-author{
 
     font-size: 20px;
 }
+=======
+>>>>>>> c9165659690ffcffb7102a0f6bee6d9fc1050487
 p.list-item-syn{
     color: rgba(0,0,0,0.6);
 }
