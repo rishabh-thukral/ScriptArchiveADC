@@ -136,7 +136,7 @@ shinyServer(function(input, output,session) {
       scriptDB <- rbind(scriptDB,newScript)
       write.csv(scriptDB,file ="ScriptDB.csv",row.names = FALSE)
       scriptDBR$scriptDB <- rbind(scriptDBR$scriptDB,newScript)# Also changing reactive scriptDB to reflec new addition in script list
-      print("reavtive value updated")
+      #print("reavtive value updated")
       #RowCount Updated after inserting ui
       #Reset the form
       updateTextInput(session,"name",value = "")
